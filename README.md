@@ -1,2 +1,9 @@
-# pinterest-content-automation
-This is a personal automation app used to analyze Pinterest trends and generate content for my business account.  The app uses Pinterest analytics and AI-generated text to assist with content creation and scheduling.
+# Pinterest Content Automation
+
+This project is a personal automation tool that:
+- Uses Pinterest Analytics
+- Identifies trending topics
+- Generates relevant Pins using AI
+- Supports affiliate marketing workflows
+
+This app is for personal and internal use only.
