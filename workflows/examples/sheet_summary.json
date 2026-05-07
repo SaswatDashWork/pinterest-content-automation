@@ -1,0 +1,33 @@
+{
+  "name": "Summarise Spreadsheet",
+  "description": "Open a Google Sheet and extract a text summary of its contents",
+  "command_template": "Open {spreadsheet_url} and summarise the data in the first sheet.",
+  "tags": ["google", "sheets", "summarise"],
+  "steps": [
+    {
+      "action": "take_screenshot",
+      "description": "Capture initial state"
+    },
+    {
+      "action": "open_url",
+      "url": "{spreadsheet_url}",
+      "description": "Navigate to the spreadsheet"
+    },
+    {
+      "action": "wait",
+      "ms": 4000,
+      "description": "Wait for sheet to fully render"
+    },
+    {
+      "action": "extract_text",
+      "selector": "#docs-editor",
+      "variable_name": "sheet_text",
+      "description": "Extract visible text from the sheet editor"
+    },
+    {
+      "action": "take_screenshot",
+      "filename": "sheet_contents",
+      "description": "Screenshot of the sheet"
+    }
+  ]
+}
