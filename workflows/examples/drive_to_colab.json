@@ -1,0 +1,49 @@
+{
+  "name": "Google Drive Sheet → Colab",
+  "description": "Copy a Google Sheet and paste its content into a new Colab notebook",
+  "command_template": "Open {spreadsheet_url}, copy Sheet1, create a Colab notebook called {notebook_name}, paste the data, and save.",
+  "tags": ["google", "sheets", "colab", "data-transfer"],
+  "steps": [
+    {
+      "action": "take_screenshot",
+      "description": "Capture initial browser state"
+    },
+    {
+      "action": "google_get_sheet_data",
+      "spreadsheet_url": "{spreadsheet_url}",
+      "sheet_name": "Sheet1",
+      "description": "Open the spreadsheet and copy all data from Sheet1"
+    },
+    {
+      "action": "wait",
+      "ms": 1000,
+      "description": "Wait for clipboard to settle"
+    },
+    {
+      "action": "google_create_colab",
+      "notebook_name": "{notebook_name}",
+      "description": "Create a new Colab notebook"
+    },
+    {
+      "action": "wait",
+      "ms": 3000,
+      "description": "Wait for Colab to load"
+    },
+    {
+      "action": "google_paste_to_colab",
+      "content": "# Data imported from Google Sheets\n",
+      "cell_type": "markdown",
+      "description": "Add a markdown header cell"
+    },
+    {
+      "action": "keyboard_shortcut",
+      "keys": "Control+s",
+      "description": "Save the notebook"
+    },
+    {
+      "action": "take_screenshot",
+      "filename": "final_state",
+      "description": "Capture final state"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+FROM mcr.microsoft.com/playwright/python:v1.44.0-jammy
+
+WORKDIR /app
+
+# Install Python deps first (better layer cache)
+COPY backend/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Playwright browser
+RUN playwright install chromium --with-deps
+
+# Copy application source
+COPY backend/     ./backend/
+COPY agents/      ./agents/
+COPY tools/       ./tools/
+COPY memory/      ./memory/
+COPY workflows/   ./workflows/
+
+# Runtime directories (also mapped as Docker volumes)
+RUN mkdir -p screenshots logs
+
+ENV PYTHONPATH=/app
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 8000
+
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
